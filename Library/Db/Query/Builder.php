@@ -2,11 +2,6 @@
 
 namespace Phalcon\Db\Query;
 
-/**
- * Class Builder
- *
- * @package Phalcon\Db\Query
- */
 class Builder extends \Phalcon\Mvc\Model\Query\Builder
 {
     protected $_columns = '*';
@@ -23,19 +18,15 @@ class Builder extends \Phalcon\Mvc\Model\Query\Builder
 
         $di = $this->getDI();
 
-        /**
-         * @var $mm \Phalcon\Mvc\Model\Manager
-         */
+        /** @var $mm \Phalcon\Mvc\Model\Manager */
         $mm = $di->get('modelsManager');
 
-        /**
-         * @var $db \Phalcon\Db\Adapter\Pdo\Postgresql
-         */
+        /** @var $db \Phalcon\Db\AdapterInterface */
         $db = $di->get('db');
 
         /**
          * Replace model names to table names
-         * [App\Models\Hirdetes\Hirdetesek] -> hirdetes.hirdetesek
+         * [App\Models\Schemaname\Tablename] -> schemaname.tablename
          */
         $sqlString = preg_replace_callback('/\[([^\]]*)\]/m', function (array $matches) use ($mm) {
             if (strpos($matches[1], '\\') !== false) {
@@ -59,7 +50,7 @@ class Builder extends \Phalcon\Mvc\Model\Query\Builder
 
         /**
          * Replace new PHQL placeholders to PDO placeholders
-         * {nev} -> :nev
+         * {name} -> :name
          * {id:int} -> :id
          * {ids:array} -> :ids0, :ids1
          */
