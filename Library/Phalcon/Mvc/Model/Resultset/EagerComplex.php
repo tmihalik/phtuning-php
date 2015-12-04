@@ -10,7 +10,7 @@ use Phalcon\Mvc\Model\Row;
 class EagerComplex implements ResultsetInterface, \Iterator, \SeekableIterator, \Countable, \ArrayAccess, \Serializable
 {
     protected $Complex;
-    protected $baseSqlAlias;
+    protected $baseAlias;
 
     public function __construct(Complex $Complex)
     {
@@ -19,7 +19,7 @@ class EagerComplex implements ResultsetInterface, \Iterator, \SeekableIterator, 
 
     public function setBaseAlias($sqlalias)
     {
-        $this->baseSqlAlias = $sqlalias;
+        $this->baseAlias = $sqlalias;
 
         return $this;
     }
@@ -29,25 +29,27 @@ class EagerComplex implements ResultsetInterface, \Iterator, \SeekableIterator, 
         $row = $this->Complex->current();
 
         if ($row instanceof Row) {
+
             foreach ($this->getRowModels($row) as $model) {
+
                 foreach ($this->getModelEagerRelations($model) as $relation) {
 
                     $sqlalias = $relation->getOption('sqlalias');
 
                     if (!empty($row->{$sqlalias})) {
+
                         $referenceModel = $relation->getReferencedModel();
 
                         if ($row->{$sqlalias} instanceof $referenceModel) {
-                            $alias = $relation->getOption('alias');
 
-                            $model->{$alias} = $row->{$sqlalias};
+                            $model->{$relation->getOption('alias')} = $row->{$sqlalias};
                         }
                     }
                 }
             }
 
-            if ($this->baseSqlAlias) {
-                $row = $row->{$this->baseSqlAlias};
+            if ($this->baseAlias) {
+                $row = $row->{$this->baseAlias};
             }
         }
 
@@ -65,8 +67,9 @@ class EagerComplex implements ResultsetInterface, \Iterator, \SeekableIterator, 
         $relations = $model->getModelsManager()->getRelations(get_class($model));
 
         return array_filter($relations, function ($relation) {
-            $sqlalias = $relation->getOption('sqlalias');
-            if ($sqlalias) {
+
+            if ($relation->getOption('sqlalias')) {
+
                 if (!in_array($relation->getType(), [Relation::BELONGS_TO, Relation::HAS_ONE])) {
                     throw new \LogicException('The sqlalias can be used only with BelongsTo or HasOne relations.');
                 }
