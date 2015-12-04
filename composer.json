@@ -1,0 +1,21 @@
+{
+  "name": "tmihalik/phtuning",
+  "description": "Phalcon Tuning",
+  "license": "Unlicense",
+  "autoload": {
+    "psr-4": { "Phalcon\\": "Library/" }
+  },
+  "require": {
+    "php": ">=5.5",
+    "ext-phalcon": ">=2.0.0"
+  },
+  "keywords": [
+    "phalcon"
+  ],
+  "authors": [
+    {
+      "name": "Tamás Mihalik",
+      "homepage": "https://github.com/tmihalik/phtuning-php"
+    }
+  ]
+}
