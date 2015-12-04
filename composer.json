@@ -3,7 +3,7 @@
   "description": "Phalcon Tuning",
   "license": "Unlicense",
   "autoload": {
-    "psr-4": { "Phalcon\\": "Library/" }
+    "psr-4": { "Phalcon\\": "Library/Phalcon/" }
   },
   "require": {
     "php": ">=5.5",

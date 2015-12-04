@@ -7,7 +7,7 @@ Phalcon Tuning
 $loader = new Phalcon\Loader();
 
 $loader->registerNamespaces(array(
-    'Phalcon' => '/path/to/phtuning/Library/'
+    'Phalcon' => '/path/to/phtuning/Library/Phalcon/'
 ));
 
 $loader->register();
