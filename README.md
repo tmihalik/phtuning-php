@@ -14,4 +14,4 @@ $loader->register();
 ```
 
 ### QueryBuilder
-* [Phalcon\Db\Query\Builder](https://github.com/tmihalik/phtuning-php/tree/master/Library/Db/Query) - Query builder for raw SQL
+* [Phalcon\Db\Query\Builder](https://github.com/tmihalik/phtuning-php/tree/master/Library/Phalcon/Db/Query) - Query builder for raw SQL
