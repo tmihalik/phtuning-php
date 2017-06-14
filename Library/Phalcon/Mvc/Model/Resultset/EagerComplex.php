@@ -49,7 +49,11 @@ class EagerComplex implements ResultsetInterface, \Iterator, \SeekableIterator, 
             }
 
             if ($this->baseAlias) {
+                $rawRow = $row;
+
                 $row = $row->{$this->baseAlias};
+
+                $row->rawRow = $rawRow;
             }
         }
 
